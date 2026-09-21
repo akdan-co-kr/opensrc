@@ -104,6 +104,16 @@ copy_headers2(
     copy_lz4_headers
 )
 
+# jansson / yara 압축본에는 configure 스크립트가 동봉돼 있지 않아 autoreconf로
+# 직접 생성해야 한다. 도구가 없으면 빌드 중반에 Error 127로 터져 원인을 알기
+# 어려우므로, configure 단계에서 미리 확인하고 멈춘다.
+find_program(AUTORECONF_EXECUTABLE autoreconf)
+if(NOT AUTORECONF_EXECUTABLE)
+    message(FATAL_ERROR
+        "autoreconf를 찾을 수 없습니다. jansson/yara 빌드에 필요합니다.\n"
+        "  sudo apt-get install -y autoconf automake libtool m4 pkg-config")
+endif()
+
 extract_zip(jansson-2.15.1.zip jansson-2.15.1)
 set(JANSSON_DIR "${CMAKE_SOURCE_DIR}/jansson-2.15.1")
 add_custom_target(jansson ALL
