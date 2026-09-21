@@ -5,6 +5,7 @@ REM ===========  LINUX BUILD  ===========
 REM =====================================
 RD /S /Q ..\Output\LinuxRelease
 mkdir ..\Output\LinuxRelease
+
 cd ..\Output\LinuxRelease
 wsl cmake ../../Src
 IF %ERRORLEVEL% NEQ 0 GOTO Error
@@ -14,6 +15,7 @@ cd ..\..\Build
 
 RD /S /Q ..\Output\libarchive
 mkdir ..\Output\libarchive
+
 cd ..\Output\libarchive
 wsl cmake ../../Src/libarchive
 IF %ERRORLEVEL% NEQ 0 GOTO Error
